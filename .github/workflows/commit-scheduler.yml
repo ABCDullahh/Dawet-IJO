@@ -1,0 +1,34 @@
+name: Auto Commit Scheduler
+
+on:
+  schedule:
+    # Setiap hari pukul 10:40 UTC (Gunakan format cron)
+    - cron: '40 10 * * *'
+
+jobs:
+  commit_job:
+    runs-on: ubuntu-latest  # Menjalankan job di server Ubuntu
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Memastikan repository di-clone
+
+      - name: Setup Python
+        uses: actions/setup-python@v4  # Memastikan environment Python terinstall
+        with:
+          python-version: '3.x'
+
+      - name: Modify File and Commit
+        run: |
+          echo "Commit at $(date)" >> random_file.txt  # Memodifikasi file
+          git config --global user.name "ABCDullahh"
+          git config --global user.email "betason123@gmail.com"
+          git add random_file.txt
+          git commit -m "Random commit at $(date)"
+
+      - name: Push Changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git remote set-url origin https://ABCDullahh:${GH_TOKEN}@github.com/ABCDullahh/Dawet-IJO.git
+          git push origin main
