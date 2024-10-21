@@ -17,9 +17,14 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Configure Git User
+        run: |
+          git config --global user.name "ABCDullahh"
+          git config --global user.email "betason123@gmail.com"
+
       - name: Generate Random Commits
         run: |
-          RANDOM_COMMITS=$((RANDOM % 5 + 1))  # Jumlah commit acak (1-5)
+          RANDOM_COMMITS=$((RANDOM % 5 + 1)) 
           echo "Creating $RANDOM_COMMITS commits"
 
           for i in $(seq 1 $RANDOM_COMMITS); do
@@ -33,5 +38,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git remote set-url origin https://ABCDullahh:${GH_TOKEN}@github.com/ABCDullahh/Dawet-IJO.git
-          git pull origin main  # Pastikan sinkronisasi dengan branch utama
+          git pull origin main  
           git push origin main
