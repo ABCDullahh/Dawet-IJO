@@ -1,9 +1,9 @@
 name: Auto Commit Scheduler
 
 on:
-  workflow_dispatch:  # Ini memungkinkan Anda menjalankan workflow secara manual
+  workflow_dispatch:
   schedule:
-    - cron: '5 19 * * *'  # 19:05 UTC = 02:05 WIB setiap hari
+    - cron: '40 10 * * *'  
 
 jobs:
   commit_job:
