@@ -1,10 +1,9 @@
 name: Auto Commit Scheduler
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  
   schedule:
-    - cron: '40 10 * * *'  
-
+    - cron: '40 10 * * *' 
 jobs:
   commit_job:
     runs-on: ubuntu-latest
@@ -18,18 +17,21 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Modify File and Commit
+      - name: Generate Random Commits
         run: |
-          echo "Commit at $(date)" >> random_file.txt
-          git config --global user.name "ABCDullahh"
-          git config --global user.email "betason123@gmail.com"
-          git add random_file.txt
-          git commit -m "Random commit at $(date)"
+          RANDOM_COMMITS=$((RANDOM % 5 + 1))  # Jumlah commit acak (1-5)
+          echo "Creating $RANDOM_COMMITS commits"
+
+          for i in $(seq 1 $RANDOM_COMMITS); do
+            echo "Commit #$i at $(date)" >> random_file.txt
+            git add random_file.txt
+            git commit -m "Random commit #$i at $(date)"
+          done
 
       - name: Push Changes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git remote set-url origin https://ABCDullahh:${GH_TOKEN}@github.com/ABCDullahh/Dawet-IJO.git
-          git pull origin main
+          git pull origin main  # Pastikan sinkronisasi dengan branch utama
           git push origin main
