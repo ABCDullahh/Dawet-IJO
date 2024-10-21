@@ -1,26 +1,26 @@
 name: Auto Commit Scheduler
 
 on:
+  workflow_dispatch:  # Ini memungkinkan Anda menjalankan workflow secara manual
   schedule:
-    # Setiap hari pukul 10:40 UTC (Gunakan format cron)
-    - cron: '5 19 * * *'
+    - cron: '5 19 * * *'  # 19:05 UTC = 02:05 WIB setiap hari
 
 jobs:
   commit_job:
-    runs-on: ubuntu-latest  # Menjalankan job di server Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Memastikan repository di-clone
+        uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v4  # Memastikan environment Python terinstall
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
       - name: Modify File and Commit
         run: |
-          echo "Commit at $(date)" >> random_file.txt  # Memodifikasi file
+          echo "Commit at $(date)" >> random_file.txt
           git config --global user.name "ABCDullahh"
           git config --global user.email "betason123@gmail.com"
           git add random_file.txt
@@ -31,4 +31,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git remote set-url origin https://ABCDullahh:${GH_TOKEN}@github.com/ABCDullahh/Dawet-IJO.git
+          git pull origin main
           git push origin main
