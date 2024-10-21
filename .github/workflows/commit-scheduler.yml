@@ -3,7 +3,7 @@ name: Auto Commit Scheduler
 on:
   schedule:
     # Setiap hari pukul 10:40 UTC (Gunakan format cron)
-    - cron: '40 10 * * *'
+    - cron: '5 19 * * *'
 
 jobs:
   commit_job:
