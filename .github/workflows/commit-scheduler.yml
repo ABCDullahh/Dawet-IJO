@@ -3,7 +3,7 @@ name: Auto Commit Scheduler
 on:
   workflow_dispatch:  
   schedule:
-    - cron: '40 10 * * *' 
+    - cron: '0 0 * * *' 
 jobs:
   commit_job:
     runs-on: ubuntu-latest
